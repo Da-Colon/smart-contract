@@ -8,7 +8,7 @@ const ContractForm = (props) => (
   <div className="w-1/2 h-1/2 bg-white shadow-2xl rounded-md">
     <Formik
       initialValues={{
-        name: ""
+        name: props.account.label
       }}
       validationSchema={props.contractValidation}
       onSubmit={ values => {
@@ -19,13 +19,13 @@ const ContractForm = (props) => (
         <form className="w-full" onSubmit={handleSubmit}>
           <div className="p-8 w-full">
             <h1 className="text-xl font-bold my-1">Smart Contract</h1>
-            <div className="text-xs font-light mb-8">User: {props.account}</div>
             <TextInput 
-              placeholder="Enter name..."
-              name="name"
-              labelname="Name:"
+              placeholder={props.account.label}
+              name="Sender"
+              labelname="Sender:"
               onChange={handleChange}
-              value={values.name}
+              value={values.sender}
+              disabled
             />
           </div>
           <div className="text-right bg-gray-200 p-2 w-full">

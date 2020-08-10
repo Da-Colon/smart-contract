@@ -18,11 +18,12 @@ const ContractForm = (props) => (
       {({values, handleSubmit, errors, handleChange}) => (
         <form className="w-full" onSubmit={handleSubmit}>
           <div className="p-8 w-full">
-            <h1 className="text-xl font-bold my-4">Smart Contract</h1>
+            <h1 className="text-xl font-bold my-1">Smart Contract</h1>
+            <div className="text-xs font-light mb-8">User: {props.account}</div>
             <TextInput 
               placeholder="Enter name..."
               name="name"
-              labelname="Name"
+              labelname="Name:"
               onChange={handleChange}
               value={values.name}
             />

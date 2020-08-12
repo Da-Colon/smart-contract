@@ -71,7 +71,9 @@ class App extends React.Component {
     return (
       <div className="w-full h-screen flex flex-col">
         <div className="p-6 bg-teal-900 w-full">
-          <h1 className="text-white text-xl">Smart Contract</h1>
+          <h1 className="text-white text-xl">
+            <a href="/">Smart Contract</a>
+          </h1>
         </div>
         <div className={account === "" && stringList === [] ? "w-full h-full flex justify-center items-center bg-gray-600" : "w-full h-full flex justify-around items-center bg-gray-600"}>
           {loading && <Loading />}

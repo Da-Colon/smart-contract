@@ -8,5 +8,5 @@ exports.LEETMAPPING = {
   t: "7",
   b: "8",
   g: "9",
-  c: "0"
+  o: "0"
 }

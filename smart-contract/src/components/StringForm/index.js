@@ -22,7 +22,7 @@ const StringForm = (props) => (
       {({values, handleSubmit, errors, handleChange}) => (
         <form className="w-full" onSubmit={handleSubmit}>
           <div className="p-4 w-full">
-            <h1 className="text-xl text-center font-bold mb-4">Smart Contract Form | {props.account.label}</h1>
+            <h1 className="text-xl text-center font-bold mb-4">User: <span className="text-teal-700">{props.account.label}</span></h1>
             <TextInput 
               placeholder=""
               name="string"

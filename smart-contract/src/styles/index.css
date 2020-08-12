@@ -1,5 +1,5 @@
 .list-container {
-  max-height: 100%;
+  height: 100%;
   overflow-x: scroll;
   overflow-y: scroll;
   -ms-overflow-style: none;

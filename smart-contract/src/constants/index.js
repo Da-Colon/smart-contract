@@ -1,7 +1,7 @@
 export const userNames = [
   "Tommy B.",
-  "Trini Y",
-  "Biily J",
+  "Trini Y.",
+  "Biily J.",
   "Jason R.",
   "Zack M.",
   "Goku G.",

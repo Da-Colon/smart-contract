@@ -1,0 +1,9 @@
+.list-container {
+  max-height: 400px;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+}
+
+.list-container::-webkit-scrollbar {
+  display: none;
+}

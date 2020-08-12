@@ -5,7 +5,7 @@ const TextInput = (props) => (
     <label className="" htmlFor={props.name}>{props.labelname}</label>
     <input 
       {...props}
-      className="bg-gray-200 pl-4 py-1"
+      className="bg-gray-200 pl-4 py-1 w-1/2"
       type="text" 
       /> 
   </div>

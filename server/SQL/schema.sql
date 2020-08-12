@@ -1,0 +1,5 @@
+CREATE TABLE strings (
+  id SERIAL PRIMARY KEY,
+  string TEXT NOT NULL,
+  name TEXT NOT NULL
+);

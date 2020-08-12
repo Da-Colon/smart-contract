@@ -5,7 +5,9 @@ const logger = require("morgan");
 const compression = require("compression");
 const helmet = require("helmet");
 const cors = require("cors");
-
+const Web3 = require('web3')
+const abi = require('../smart-contract/src/abis/StringContract.json')
+const StringsModel = require('./models/strings')
 require("dotenv").config();
 
 // ROUTERS
@@ -40,34 +42,37 @@ app.use(express.static(path.join(__dirname, "public/")));
 app.use("/accounts/", accountsRouter);
 
 // Socket Server 
-// const httpServer = require('http').Server(app)
-// const io = require('socket.io')(httpServer, {
-//   handlePreflightRequest: (req, res) => {
-//     const headers = {
-//         "Access-Control-Allow-Headers": "Content-Type, Authorization",
-//         "Access-Control-Allow-Origin": req.headers.origin, //or the specific origin you want to give access to,
-//         "Access-Control-Allow-Credentials": true
-//     };
-//     res.writeHead(200, headers);
-//     res.end();
-// }
-// });
+const httpServer = require('http').Server(app)
+const io = require('socket.io')(httpServer)
+const web3 = new Web3(new Web3.providers.WebsocketProvider('http://localhost:7545'))
+const contract = new web3.eth.Contract(abi.abi, '0x208F01fc1B6f590a44dc60bF7D14DA20CC9CE4D9')
 
-// const user = {}
-// io.on('connection', (socket) => {
-//   console.info(`Socket connected, ID: ${socket.id}`);
-//   user[socket.id] = {
-//     accountId: socket.handshake.query
-//   }
+const getAllStrings = async () => {
+  return await StringsModel.getAllString();
+}
 
-//   socket.on('disconnect', () => {
-//     console.log(`Socket disconnected, ID: ${socket.id}`);
-//   });
-// });
+io.on('connection', async (socket) => {
+  console.info(`Socket connected, ID: ${socket.id}`);
+  const strings = await getAllStrings()
+  socket.emit('newText', strings)
+  
+  socket.on('disconnect', () => {
+    console.log(`Socket disconnected, ID: ${socket.id}`);
+  });
+});
 
-// httpServer.listen(process.env.PORT || 7545, () => {
-//   console.log(`Server started on port ${process.env.PORT || 7545}`);
-// });
 
+httpServer.listen(process.env.PORT || 5000, () => {
+  console.log(`Server started on port ${process.env.PORT || 5000}`);
+});
+
+
+
+contract.events.NewText({})
+  .on('data', event => {
+    const {name, text} = event.returnValues;
+    const string = new StringsModel(text, name, io);
+    string.newString();
+  })
 
 module.exports = app;

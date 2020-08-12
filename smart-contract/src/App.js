@@ -6,10 +6,10 @@ import abi from './abis/StringContract.json'
 import Home from './components/Home';
 import Form from './components/StringForm'
 import io from 'socket.io-client'
-import StringList from './components/StringList/stringList';
+import StringList from './components/StringList';
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import Loading from './components/Loading';
-
+import './styles/index.css'
 
 class App extends React.Component {
   constructor(){
@@ -70,8 +70,8 @@ class App extends React.Component {
     const {loading, account, stringList} = this.state
     return (
       <div className="w-full h-screen flex flex-col">
-        <div className="p-6 bg-teal-900 w-full">
-          <h1 className="text-white text-xl">
+        <div className="p-4 bg-teal-900 w-full">
+          <h1 className="text-white text- xl">
             <a href="/">Smart Contract</a>
           </h1>
         </div>

@@ -5,7 +5,6 @@ import * as Yup from 'yup'
 import PrimaryButton from '../Form/PrimaryButton'
 import { userOptions } from '../../utils/accountUtils'
 
-
 const Home = (props) => (
   <div className="w-1/2 h-1/2 bg-white shadow-2xl rounded-md">
     <Formik
@@ -20,7 +19,7 @@ const Home = (props) => (
       {({values, handleSubmit, errors, handleChange, setFieldValue}) => (
         <form className="w-full" onSubmit={handleSubmit}>
           <div className="p-8 w-full">
-            <h1 className="text-xl font-bold my-1">Select a User</h1>
+            <h1 className="text-xl font-bold my-2">Select a user</h1>
               <Select 
                 name="account"
                 options={userOptions(props.accounts)}

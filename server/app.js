@@ -13,6 +13,7 @@ require("dotenv").config();
 
 // ROUTERS
 const accountsRouter = require("./routes/accounts");
+const stringRouter = require("./routes/stringList")
 
 
 const corsOptions = {
@@ -41,6 +42,7 @@ app.use(express.static(path.join(__dirname, "public/")));
 
 
 app.use("/accounts/", accountsRouter);
+app.use("/strings", stringRouter)
 
 // Socket Server 
 const httpServer = require('http').Server(app)

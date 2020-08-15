@@ -4,6 +4,8 @@ import { Formik } from "formik";
 import PrimaryButton from '../Form/PrimaryButton'
 import TextInput from '../Form/TextInput';
 
+// Practice form for submitting to Smart Contract
+
 const ContractForm = (props) => (
   <div className="w-1/2 h-1/2 bg-white shadow-2xl rounded-md">
     <Formik

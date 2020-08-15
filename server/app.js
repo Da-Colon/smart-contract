@@ -8,6 +8,7 @@ const cors = require("cors");
 const Web3 = require('web3')
 const abi = require('../smart-contract/src/abis/StringContract.json')
 const StringsModel = require('./models/strings')
+const websocket = require('./utils/websockets')
 require("dotenv").config();
 
 // ROUTERS
@@ -44,29 +45,16 @@ app.use("/accounts/", accountsRouter);
 // Socket Server 
 const httpServer = require('http').Server(app)
 const io = require('socket.io')(httpServer)
-const web3 = new Web3(new Web3.providers.WebsocketProvider('http://localhost:7545'))
-const contract = new web3.eth.Contract(abi.abi, '0x208F01fc1B6f590a44dc60bF7D14DA20CC9CE4D9')
 
-const getAllStrings = async () => {
-  return await StringsModel.getAllString();
-}
-
-io.on('connection', async (socket) => {
-  console.info(`Socket connected, ID: ${socket.id}`);
-  const strings = await getAllStrings()
-  socket.emit('newText', strings)
-  
-  socket.on('disconnect', () => {
-    console.log(`Socket disconnected, ID: ${socket.id}`);
-  });
-});
-
+websocket.connection(io);
 
 httpServer.listen(process.env.PORT || 5000, () => {
-  console.log(`Server started on port ${process.env.PORT || 5000}`);
+  console.log(`\nServer started on port ${process.env.PORT || 5000}`);
 });
 
-
+// Contract Event WebSocket
+const web3 = new Web3(new Web3.providers.WebsocketProvider('http://localhost:7545'))
+const contract = new web3.eth.Contract(abi.abi, '0x208F01fc1B6f590a44dc60bF7D14DA20CC9CE4D9')
 
 contract.events.NewText({})
   .on('data', event => {

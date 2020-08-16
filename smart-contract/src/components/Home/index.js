@@ -3,6 +3,7 @@ import {Formik} from 'formik'
 import Select from 'react-select'
 import * as Yup from 'yup'
 import PrimaryButton from '../Form/PrimaryButton'
+import SecondaryButton from '../Form/SecondaryButton'
 import { userOptions } from '../../utils/accountUtils'
 
 const Home = (props) => (
@@ -29,6 +30,7 @@ const Home = (props) => (
               />
           </div>
             <div className="text-right bg-gray-200 p-2 w-full">
+              <PrimaryButton onClick={props.showStringList}>String list</PrimaryButton>
               <PrimaryButton type="submit">Submit</PrimaryButton>
             </div>
         </form>

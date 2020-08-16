@@ -32,6 +32,10 @@ class App extends React.Component {
     this.setState({accounts: response.data})
   }
 
+  _showStringList = () => {
+    this.setState({showStringList: true})
+  }
+
   _handleAccountSubmit = (user) => {
     this.setState({ loading: true})
     this.setState({ account: user.account})
@@ -60,9 +64,10 @@ class App extends React.Component {
             <a href="/">Smart Contract</a>
           </h1>
         </div>
-        <div className={account === "" && showStringList ? "w-full h-full flex justify-center items-center bg-gray-600" : "w-full h-full flex justify-around items-center bg-gray-600"}>
+        <div className="w-full h-full flex justify-center items-center bg-gray-600">
           {loading && <Loading />}
-          {!loading && account === "" && <Home isLoading={loading} onSubmit={this._handleAccountSubmit} accounts={this.state.accounts} />}
+          {!loading && account === "" && !showStringList && <Home isLoading={loading} onSubmit={this._handleAccountSubmit} accounts={this.state.accounts} showStringList={this._showStringList} />}
+          
           {!loading && account !== "" && <Form contractValidation={this._contractValidation} onSubmit={this._handleFormSubmit} account={this.state.account} /> }
           {!loading && <StringList showStringList={showStringList} />}
         </div>

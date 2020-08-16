@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Formik } from "formik";
 import PrimaryButton from '../Form/PrimaryButton'
 import TextInput from '../Form/TextInput';
+import SecondaryButton from '../Form/SecondaryButton';
 
 const StringForm = (props) => (
   <div className="w-1/2 mx-8 bg-white shadow-2xl rounded-md">
@@ -32,6 +33,7 @@ const StringForm = (props) => (
             />
           </div>
           <div className="text-right bg-gray-200 p-1 w-full">
+            <SecondaryButton type="button" onClick={() => window.location.reload()}>Switch user</SecondaryButton>
             <PrimaryButton type="submit">Submit</PrimaryButton>
           </div>
         </form>

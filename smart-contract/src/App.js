@@ -5,8 +5,7 @@ import Web3 from 'web3'
 import abi from './abis/StringContract.json'
 import Home from './components/Home';
 import Form from './components/StringForm'
-import io from 'socket.io-client'
-import StringList from './components/StringList';
+import StringList from './containers/StringList';
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import Loading from './components/Loading';
 import './styles/index.css'
@@ -18,21 +17,14 @@ class App extends React.Component {
       loading: true,
       accounts: [],
       account: "",
-      stringList: []
+      showStringList: false
     }
-    this.socket = null;
     this.web3 = new Web3('http://localhost:7545')
   }
 
   componentDidMount = () => {
-    this._setSocket();
     this._setAccounts()
-    this._getNewStrings();
     setTimeout(() => this.setState({loading: false}), 1000)
-  }
-
-  _setSocket = () => {
-    this.socket = new io('http://localhost:5000')
   }
 
   _setAccounts = async () => {
@@ -41,22 +33,15 @@ class App extends React.Component {
   }
 
   _handleAccountSubmit = (user) => {
-    this.setState({loading: true})
+    this.setState({ loading: true})
     this.setState({ account: user.account})
+    this.setState({ showStringList: true})
     setTimeout(() => this.setState({loading: false}), 1000)
   }
 
   _contractValidation = () => {
     return Yup.object().shape({
       string: Yup.string().required('String Field is Required')
-    })
-  }
-
-  _getNewStrings = () => {
-    this.socket.on('newText', strings => {
-      this.setState({
-        stringList: strings
-      })
     })
   }
 
@@ -67,7 +52,7 @@ class App extends React.Component {
   }
 
   render = () => {
-    const {loading, account, stringList} = this.state
+    const {loading, account, showStringList} = this.state
     return (
       <div className="w-full h-screen flex flex-col">
         <div className="p-4 bg-teal-900 w-full">
@@ -75,11 +60,11 @@ class App extends React.Component {
             <a href="/">Smart Contract</a>
           </h1>
         </div>
-        <div className={account === "" && stringList === [] ? "w-full h-full flex justify-center items-center bg-gray-600" : "w-full h-full flex justify-around items-center bg-gray-600"}>
+        <div className={account === "" && showStringList ? "w-full h-full flex justify-center items-center bg-gray-600" : "w-full h-full flex justify-around items-center bg-gray-600"}>
           {loading && <Loading />}
           {!loading && account === "" && <Home isLoading={loading} onSubmit={this._handleAccountSubmit} accounts={this.state.accounts} />}
           {!loading && account !== "" && <Form contractValidation={this._contractValidation} onSubmit={this._handleFormSubmit} account={this.state.account} /> }
-          {!loading && account !== "" && stringList !== [] && <StringList stringList={this.state.stringList} />}
+          {!loading && <StringList showStringList={showStringList} />}
         </div>
       </div>
     );

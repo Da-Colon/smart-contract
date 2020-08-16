@@ -8,7 +8,7 @@ const cors = require("cors");
 const Web3 = require('web3')
 const abi = require('../smart-contract/src/abis/StringContract.json')
 const StringsModel = require('./models/strings')
-const websocket = require('./utils/websockets')
+const Websocket = require('./models/websockets')
 require("dotenv").config();
 
 // ROUTERS
@@ -48,7 +48,7 @@ app.use("/strings", stringRouter)
 const httpServer = require('http').Server(app)
 const io = require('socket.io')(httpServer)
 
-websocket.connection(io);
+Websocket.connection(io);
 
 httpServer.listen(process.env.PORT || 5000, () => {
   console.log(`\nServer started on port ${process.env.PORT || 5000}`);

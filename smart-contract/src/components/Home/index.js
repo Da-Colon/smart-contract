@@ -3,7 +3,6 @@ import {Formik} from 'formik'
 import Select from 'react-select'
 import * as Yup from 'yup'
 import PrimaryButton from '../Form/PrimaryButton'
-import SecondaryButton from '../Form/SecondaryButton'
 import { userOptions } from '../../utils/accountUtils'
 
 const Home = (props) => (

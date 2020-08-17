@@ -13,10 +13,7 @@ const StringForm = (props) => (
       }}
       validationSchema={props.contractValidation}
       onSubmit={ (values, {resetForm}) => {
-        props.onSubmit({
-          ...values,
-          name: props.account.label
-        })
+        props.onSubmit({...values})
         resetForm({values: ""})
       }}  
     >
